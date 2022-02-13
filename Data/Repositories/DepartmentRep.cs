@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Core.Repositories;
 using Entities;
@@ -14,17 +15,17 @@ namespace Data.Repositories
 
         public async Task<IEnumerable<Department>> GetAllWithCompanyAsync()
         {
-            throw new System.NotImplementedException();
+            return await ShopDbContext.Departments.Include(x=>x.Company).ToListAsync();
         }
 
-        public async Task<Department> GetWithCompanyIdAsync(int id)
+        public async Task<Department> GetWithCompanyByDepartmentIdAsync(int departmentId)
         {
-            throw new System.NotImplementedException();
+            return await ShopDbContext.Departments.Include(x=>x.Company).SingleOrDefaultAsync(x=>x.DepartmentID == departmentId);
         }
 
         public async Task<IEnumerable<Department>> GetAllWithCompanyBYCompanyIdAsync(int companyId)
         {
-            throw new System.NotImplementedException();
+            return await ShopDbContext.Departments.Include(x=>x.Company).Where(x=>x.CompanyID_FK == companyId).ToListAsync();   
         }
 
         private ShopDbContext ShopDbContext

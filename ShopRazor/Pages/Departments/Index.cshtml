@@ -1,0 +1,78 @@
+﻿@page
+@model ShopRazor.Pages.Departments.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Department[0].DepartmentTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department[0].IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department[0].IsDelete)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department[0].CreateDatetime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department[0].ModifidDatetime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department[0].DeleteDatetime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department[0].Company)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Department) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDelete)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDatetime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifidDatetime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeleteDatetime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company.CompanyTitle)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.DepartmentID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.DepartmentID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.DepartmentID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

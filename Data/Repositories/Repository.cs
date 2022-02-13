@@ -54,5 +54,13 @@ namespace Data.Repositories
         {
             return Context.Set<TEntity>().SingleOrDefaultAsync(predicate);
         }
+
+        public void UpdateDisconected(TEntity entity)
+        {
+            //_context.Students.Attach(student);
+            //_context.Entry(student).State = EntityState.Modified;
+            Context.Set<TEntity>().Attach(entity);
+            Context.Entry(entity).State = EntityState.Modified;
+        }
     }
 }

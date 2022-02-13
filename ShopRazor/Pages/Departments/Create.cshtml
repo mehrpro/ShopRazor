@@ -1,0 +1,68 @@
+﻿@page
+@model ShopRazor.Pages.Departments.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Department</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Department.DepartmentTitle" class="control-label"></label>
+                <input asp-for="Department.DepartmentTitle" class="form-control" />
+                <span asp-validation-for="Department.DepartmentTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Department.Description" class="control-label"></label>
+                <input asp-for="Department.Description" class="form-control" />
+                <span asp-validation-for="Department.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Department.IsActive" /> @Html.DisplayNameFor(model => model.Department.IsActive)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Department.IsDelete" /> @Html.DisplayNameFor(model => model.Department.IsDelete)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Department.CreateDatetime" class="control-label"></label>
+                <input asp-for="Department.CreateDatetime" class="form-control" />
+                <span asp-validation-for="Department.CreateDatetime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Department.ModifidDatetime" class="control-label"></label>
+                <input asp-for="Department.ModifidDatetime" class="form-control" />
+                <span asp-validation-for="Department.ModifidDatetime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Department.DeleteDatetime" class="control-label"></label>
+                <input asp-for="Department.DeleteDatetime" class="form-control" />
+                <span asp-validation-for="Department.DeleteDatetime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Department.CompanyID_FK" class="control-label"></label>
+                <select asp-for="Department.CompanyID_FK" class ="form-control" asp-items="ViewBag.CompanyID_FK"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

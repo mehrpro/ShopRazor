@@ -14,12 +14,12 @@ namespace Data.Repositories
 
         public async Task<IEnumerable<Company>> GetAllWithDepartmentAsync()
         {
-            throw new System.NotImplementedException();
+            return await ShopDbContext.Companies.Include(x=>x.Departments).ToListAsync();
         }
 
         public async Task<Company> GetWithDepartmentId(int id)
         {
-            throw new System.NotImplementedException();
+            return await ShopDbContext.Companies.Include(x=>x.Departments).SingleOrDefaultAsync(x=>x.CompanyID == id);
         }
 
         private ShopDbContext ShopDbContext

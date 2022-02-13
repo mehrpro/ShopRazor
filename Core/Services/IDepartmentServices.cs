@@ -12,7 +12,8 @@ namespace Core.Services
     {
         Task<IEnumerable<Department>> GetAllWithCompany();
         Task<Department> GetDepartmentById(int id);
-        Task<IEnumerable<Department>> GetDepartmentByCompanyId(int companyId);
+        Task<IEnumerable<Department>> GetAllDepartmentByCompanyId(int companyId);
+        Task<Department> GetDepartmentByCompanyId(int companyId);
         Task<Department> CreateDepartment(Department department);
         Task UpdateDepartment(Department department);
         Task DeleteDepartment(Department department);

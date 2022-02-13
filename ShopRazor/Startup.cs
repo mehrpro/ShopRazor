@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data;
+using Core.Services;
+using Services;
 
 namespace ShopRazor
 {
@@ -30,10 +32,11 @@ namespace ShopRazor
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+            services.AddTransient<ICompanyServices, CompanyServices>();
+            services.AddTransient<IDepartmentServices, DepartmentServices>();
             services.AddDbContext<ShopDbContext>(opts =>
             {
-                opts.UseMySql(Configuration.GetConnectionString("MySqlConn"), new MySqlServerVersion("8.0.27"), x => x.MigrationsAssembly("Data"));
+                opts.UseMySql(Configuration.GetConnectionString("MySqlConn"), new MySqlServerVersion("8.0.28"), x => x.MigrationsAssembly("Data"));
             });
 
 
