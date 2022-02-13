@@ -53,9 +53,9 @@ namespace Services
             await unitOfWork.CommitAsync();
         }
 
-        public async Task<Department> GetDepartmentByCompanyId(int companyId)
+        public async Task<Department> GetWithCompanyByDepartmentId(int departmentId)
         {
-            return await unitOfWork.Departments.GetWithCompanyByDepartmentIdAsync(companyId);
+            return await unitOfWork.Departments.GetWithCompanyByDepartmentIdAsync(departmentId);
         }
     }
 }

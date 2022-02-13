@@ -5,26 +5,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Data;
+using Core.Services;
 using Entities;
 
 namespace ShopRazor.Pages.Departments
 {
     public class IndexModel : PageModel
     {
-        private readonly Data.ShopDbContext _context;
+        private readonly IDepartmentServices departmentServices;
 
-        public IndexModel(Data.ShopDbContext context)
+        public IndexModel(IDepartmentServices departmentServices)
         {
-            _context = context;
+            this.departmentServices = departmentServices;
         }
 
         public IList<Department> Department { get;set; }
 
         public async Task OnGetAsync()
         {
-            Department = await _context.Departments
-                .Include(d => d.Company).ToListAsync();
+            var result = await departmentServices.GetAllWithCompany();
+            Department =  result.ToList();
         }
     }
 }

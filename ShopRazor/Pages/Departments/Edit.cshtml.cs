@@ -6,18 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Data;
+using Core.Services;
 using Entities;
 
 namespace ShopRazor.Pages.Departments
 {
     public class EditModel : PageModel
     {
-        private readonly Data.ShopDbContext _context;
+        private readonly IDepartmentServices departmentServices;
+        private readonly ICompanyServices companyServices;
 
-        public EditModel(Data.ShopDbContext context)
+        public EditModel(IDepartmentServices departmentServices , ICompanyServices companyServices)
         {
-            _context = context;
+            this.departmentServices = departmentServices;
+            this.companyServices = companyServices;
         }
 
         [BindProperty]
@@ -30,14 +32,14 @@ namespace ShopRazor.Pages.Departments
                 return NotFound();
             }
 
-            Department = await _context.Departments
-                .Include(d => d.Company).FirstOrDefaultAsync(m => m.DepartmentID == id);
+            Department = await departmentServices.GetWithCompanyByDepartmentId((int)id);
 
             if (Department == null)
             {
                 return NotFound();
             }
-           ViewData["CompanyID_FK"] = new SelectList(_context.Companies, "CompanyID", "CompanyTitle");
+            var companyList = await companyServices.GetAllCompany();
+           ViewData["CompanyID_FK"] = new SelectList(companyList, "CompanyID", "CompanyTitle");
             return Page();
         }
 
@@ -50,30 +52,14 @@ namespace ShopRazor.Pages.Departments
                 return Page();
             }
 
-            _context.Attach(Department).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DepartmentExists(Department.DepartmentID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+          await  departmentServices.UpdateDepartment(Department);
 
             return RedirectToPage("./Index");
         }
 
-        private bool DepartmentExists(int id)
+        private async Task<bool> DepartmentExists(int id)
         {
-            return _context.Departments.Any(e => e.DepartmentID == id);
+            return  Convert.ToBoolean(await departmentServices.GetDepartmentById(id));
         }
     }
 }

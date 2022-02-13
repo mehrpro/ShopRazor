@@ -29,7 +29,7 @@ namespace ShopRazor.Pages.Departments
                 return NotFound();
             }
 
-            Department = await departmentServices.GetDepartmentByCompanyId((int)id);
+            Department = await departmentServices.GetDepartmentById((int)id);
 
             if (Department == null)
             {
@@ -45,12 +45,11 @@ namespace ShopRazor.Pages.Departments
                 return NotFound();
             }
 
-            Department = await _context.Departments.FindAsync(id);
+            Department = await departmentServices.GetDepartmentById((int)id);
 
             if (Department != null)
             {
-                _context.Departments.Remove(Department);
-                await _context.SaveChangesAsync();
+                await departmentServices.DeleteDepartment(Department);
             }
 
             return RedirectToPage("./Index");

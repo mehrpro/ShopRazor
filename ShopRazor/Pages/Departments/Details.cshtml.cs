@@ -5,18 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Data;
+using Core.Services;
 using Entities;
 
 namespace ShopRazor.Pages.Departments
 {
     public class DetailsModel : PageModel
     {
-        private readonly Data.ShopDbContext _context;
+        private readonly IDepartmentServices departmentServices;
 
-        public DetailsModel(Data.ShopDbContext context)
+        public DetailsModel(IDepartmentServices departmentServices )
         {
-            _context = context;
+            this.departmentServices = departmentServices;
         }
 
         public Department Department { get; set; }
@@ -28,8 +28,7 @@ namespace ShopRazor.Pages.Departments
                 return NotFound();
             }
 
-            Department = await _context.Departments
-                .Include(d => d.Company).FirstOrDefaultAsync(m => m.DepartmentID == id);
+            Department = await departmentServices.GetDepartmentById((int)id);
 
             if (Department == null)
             {
