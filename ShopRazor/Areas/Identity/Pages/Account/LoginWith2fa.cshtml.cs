@@ -33,12 +33,12 @@ namespace ShopRazor.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [StringLength(7, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(7, ErrorMessage = "{0} باید حداقل {2} و حداکثر {1} کاراکتر باشد.", MinimumLength = 6)]
             [DataType(DataType.Text)]
-            [Display(Name = "Authenticator code")]
+            [Display(Name = "کد احراز هویت")]
             public string TwoFactorCode { get; set; }
 
-            [Display(Name = "Remember this machine")]
+            [Display(Name = "این دستگاه را به خاطر بسپار")]
             public bool RememberMachine { get; set; }
         }
 
@@ -49,7 +49,7 @@ namespace ShopRazor.Areas.Identity.Pages.Account
 
             if (user == null)
             {
-                throw new InvalidOperationException($"Unable to load two-factor authentication user.");
+                throw new InvalidOperationException($"بارگیری کاربر احراز هویت دو مرحله ای امکان پذیر نیست.");
             }
 
             ReturnUrl = returnUrl;
@@ -70,7 +70,7 @@ namespace ShopRazor.Areas.Identity.Pages.Account
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                throw new InvalidOperationException($"Unable to load two-factor authentication user.");
+                throw new InvalidOperationException($"بارگیری کاربر احراز هویت دو مرحله ای امکان پذیر نیست.");
             }
 
             var authenticatorCode = Input.TwoFactorCode.Replace(" ", string.Empty).Replace("-", string.Empty);
@@ -79,18 +79,18 @@ namespace ShopRazor.Areas.Identity.Pages.Account
 
             if (result.Succeeded)
             {
-                _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.Id);
+                _logger.LogInformation("کاربر با شناسه '{UserId}' با 2fa وارد شده است.", user.Id);
                 return LocalRedirect(returnUrl);
             }
             else if (result.IsLockedOut)
             {
-                _logger.LogWarning("User with ID '{UserId}' account locked out.", user.Id);
+                _logger.LogWarning("کاربر با شناسه '{UserId}' حساب قفل شد.", user.Id);
                 return RedirectToPage("./Lockout");
             }
             else
             {
-                _logger.LogWarning("Invalid authenticator code entered for user with ID '{UserId}'.", user.Id);
-                ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
+                _logger.LogWarning("کد احراز هویت نامعتبر برای کاربر با شناسه وارد شده است'{UserId}'.", user.Id);
+                ModelState.AddModelError(string.Empty, "کد احراز هویت نامعتبر است.");
                 return Page();
             }
         }

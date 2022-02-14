@@ -30,12 +30,12 @@ namespace ShopRazor.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"بارگیری کاربر با شناسه ممکن نیست '{_userManager.GetUserId(User)}'.");
             }
 
             if (!await _userManager.GetTwoFactorEnabledAsync(user))
             {
-                throw new InvalidOperationException($"Cannot disable 2FA for user with ID '{_userManager.GetUserId(User)}' as it's not currently enabled.");
+                throw new InvalidOperationException($"نمی توان 2FA را برای کاربر با شناسه غیرفعال کرد '{_userManager.GetUserId(User)}' چون در حال حاضر فعال نیست");
             }
 
             return Page();
@@ -46,17 +46,17 @@ namespace ShopRazor.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"بارگیری کاربر با شناسه ممکن نیست '{_userManager.GetUserId(User)}'.");
             }
 
             var disable2faResult = await _userManager.SetTwoFactorEnabledAsync(user, false);
             if (!disable2faResult.Succeeded)
             {
-                throw new InvalidOperationException($"Unexpected error occurred disabling 2FA for user with ID '{_userManager.GetUserId(User)}'.");
+                throw new InvalidOperationException($"هنگام غیرفعال کردن 2FA برای کاربر دارای شناسه، خطای غیرمنتظره‌ای روی داد '{_userManager.GetUserId(User)}'.");
             }
 
-            _logger.LogInformation("User with ID '{UserId}' has disabled 2fa.", _userManager.GetUserId(User));
-            StatusMessage = "2fa has been disabled. You can reenable 2fa when you setup an authenticator app";
+            _logger.LogInformation("کاربر با شناسه {UserId} 2fa را غیرفعال کرده است.", _userManager.GetUserId(User));
+            StatusMessage = "2fa غیر فعال شده است. هنگامی که یک برنامه احراز هویت را راه اندازی می کنید، می توانید 2fa را دوباره فعال کنید";
             return RedirectToPage("./TwoFactorAuthentication");
         }
     }

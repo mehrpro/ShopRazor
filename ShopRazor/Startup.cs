@@ -36,7 +36,7 @@ namespace ShopRazor
             services.AddTransient<IDepartmentServices, DepartmentServices>();
             services.AddDbContext<ShopDbContext>(opts =>
             {
-                opts.UseMySql(Configuration.GetConnectionString("MySqlConn"), new MySqlServerVersion("8.0.28"), x => x.MigrationsAssembly("Data"));
+                opts.UseMySql(Configuration.GetConnectionString("MySqlConn"), new MySqlServerVersion("8.0.27"), x => x.MigrationsAssembly("Data"));
             });
 
 
@@ -45,7 +45,7 @@ namespace ShopRazor
             //    options.UseSqlServer(
             //        Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ShopDbContext>();
             services.AddRazorPages();
         }

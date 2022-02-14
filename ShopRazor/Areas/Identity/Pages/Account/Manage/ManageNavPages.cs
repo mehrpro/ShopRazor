@@ -8,21 +8,21 @@ namespace ShopRazor.Areas.Identity.Pages.Account.Manage
 {
     public static class ManageNavPages
     {
-        public static string Index => "Index";
+        public static string Index => "فهرست مطالب";
 
-        public static string Email => "Email";
+        public static string Email => "پست الکترونیک";
 
-        public static string ChangePassword => "ChangePassword";
+        public static string ChangePassword => "تغییر رمز عبور";
 
-        public static string DownloadPersonalData => "DownloadPersonalData";
+        public static string DownloadPersonalData => "دانلود داده های شخصی";
 
-        public static string DeletePersonalData => "DeletePersonalData";
+        public static string DeletePersonalData => "حذف داده های شخصی";
 
-        public static string ExternalLogins => "ExternalLogins";
+        public static string ExternalLogins => "ورودهای خارجی";
 
-        public static string PersonalData => "PersonalData";
+        public static string PersonalData => "اطلاعات شخصی";
 
-        public static string TwoFactorAuthentication => "TwoFactorAuthentication";
+        public static string TwoFactorAuthentication => "احراز هویت دو عاملی";
 
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 

@@ -58,8 +58,8 @@ namespace ShopRazor.Areas.Identity.Pages.Account
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    "بازنشانی رمز عبور",
+                    $"لطفا رمز عبور خود را بازنشانی کنید <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>اینجا کلیک کنید</a>.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }
