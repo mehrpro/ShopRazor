@@ -18,6 +18,11 @@ namespace Services
             this.unitOfWork = unitOfWork;
         }
 
+        public async Task<Company> GetCompanyByIdWithDepartments(int id)
+        {
+            return await unitOfWork.Companies.GetWithDepartmentId(id);
+        }
+
         public async Task<Company> CreateCompany(Company company)
         {
             await unitOfWork.Companies.AddAsync(company);
@@ -34,6 +39,11 @@ namespace Services
         public async Task<IEnumerable<Company>> GetAllCompany()
         {
             return await unitOfWork.Companies.GetAllAsync();
+        }
+
+        public async Task<IEnumerable<Company>> GetAllCompanyWithDepartment()
+        {
+            return await unitOfWork.Companies.GetAllWithDepartmentAsync();
         }
 
         public async Task<Company> GetCompanyById(int id)

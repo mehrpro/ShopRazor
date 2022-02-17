@@ -10,6 +10,7 @@ namespace Core.Repositories
     public interface ICompanyRep : IRepository<Company>
     {
         Task<IEnumerable<Company>> GetAllWithDepartmentAsync();
+        
         Task<Company> GetWithDepartmentId(int id);
     }
 }

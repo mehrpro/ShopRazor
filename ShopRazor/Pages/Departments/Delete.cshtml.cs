@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Core.Services;
 using Entities;
 
-namespace ShopRazor.Pages.Departments
+namespace Netyar.Pages.Departments
 {
     public class DeleteModel : PageModel
     {

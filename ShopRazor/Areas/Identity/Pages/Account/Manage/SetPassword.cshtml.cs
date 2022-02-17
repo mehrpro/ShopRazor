@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ShopRazor.Areas.Identity.Pages.Account.Manage
+namespace Netyar.Areas.Identity.Pages.Account.Manage
 {
     public class SetPasswordModel : PageModel
     {

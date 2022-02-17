@@ -1,5 +1,5 @@
 ﻿@page
-@model ShopRazor.Pages.Departments.DeleteModel
+@model Netyar.Pages.Departments.DeleteModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -61,7 +61,7 @@
             @Html.DisplayFor(model => model.Department.Company.CompanyTitle)
         </dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="Department.DepartmentID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

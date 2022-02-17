@@ -17,7 +17,7 @@ using Data;
 using Core.Services;
 using Services;
 
-namespace ShopRazor
+namespace Netyar
 {
     public class Startup
     {
@@ -31,7 +31,8 @@ namespace ShopRazor
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddAutoMapper(typeof(Startup));
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<ICompanyServices, CompanyServices>();
             services.AddTransient<IDepartmentServices, DepartmentServices>();
             services.AddDbContext<ShopDbContext>(opts =>

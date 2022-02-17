@@ -2,26 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Core.Services;
 using Entities;
 using Core;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Netyar.DTO.CompaniesDTO;
 
-namespace ShopRazor.Pages.Companies
+namespace Netyar.Pages.Companies
 {
     public class DeleteModel : PageModel
     {
         private readonly ICompanyServices companyServices;
+        private readonly IMapper _mapper;
 
-        public DeleteModel(ICompanyServices companyServices)
+        public DeleteModel(ICompanyServices companyServices, IMapper mapper)
         {
             this.companyServices = companyServices;
+            _mapper = mapper;
         }
 
         [BindProperty]
-        public Company _company { get; set; }
+        public CompanyDeleteDTO _company { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,12 +35,19 @@ namespace ShopRazor.Pages.Companies
                 return NotFound();
             }
 
-            _company = await companyServices.GetCompanyById((int)id);
+            var resultFind = await companyServices.GetCompanyByIdWithDepartments((int)id);
 
-            if (_company == null)
+
+
+            if (resultFind == null)
             {
                 return NotFound();
             }
+
+            _company = _mapper.Map<CompanyDeleteDTO>(resultFind);
+            ViewData["DepartmentsList"] = new SelectList(_company.Departments, "DepartmentID", "DepartmentTitle");
+
+
             return Page();
         }
 
@@ -46,11 +58,11 @@ namespace ShopRazor.Pages.Companies
                 return NotFound();
             }
 
-            _company = await companyServices.GetCompanyById((int)id);
+            var resultFind = await companyServices.GetCompanyById((int)id);
 
-            if (_company != null)
+            if (resultFind != null)
             {
-               await  companyServices.DeleteCompany(_company);
+                await companyServices.DeleteCompany(resultFind);
             }
 
             return RedirectToPage("./Index");

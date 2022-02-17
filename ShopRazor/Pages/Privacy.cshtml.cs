@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopRazor.Pages
+namespace Netyar.Pages
 {
     public class PrivacyModel : PageModel
     {

@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-[assembly: HostingStartup(typeof(ShopRazor.Areas.Identity.IdentityHostingStartup))]
-namespace ShopRazor.Areas.Identity
+[assembly: HostingStartup(typeof(Netyar.Areas.Identity.IdentityHostingStartup))]
+namespace Netyar.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,20 +11,23 @@ using Data;
 using Entities;
 using Core;
 using Core.Services;
+using Netyar.DTO.CompaniesDTO;
 
-namespace ShopRazor.Pages.Companies
+namespace Netyar.Pages.Companies
 {
     public class EditModel : PageModel
     {
         private readonly ICompanyServices companyServices;
+        private readonly IMapper _mapper;
 
-        public EditModel(ICompanyServices companyServices)
+        public EditModel(ICompanyServices companyServices, IMapper mapper)
         {
             this.companyServices = companyServices;
+            _mapper = mapper;
         }
 
         [BindProperty]
-        public Company _company { get; set; }
+        public CompanyEditDTO _company { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -32,17 +36,19 @@ namespace ShopRazor.Pages.Companies
                 return NotFound();
             }
 
-            _company = await companyServices.GetCompanyById((int)id);
+            var result = await companyServices.GetCompanyById((int)id);
 
-            if (_company == null)
+            if (result == null)
             {
                 return NotFound();
             }
+
+            _company = _mapper.Map<CompanyEditDTO>(result);
+
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -50,24 +56,12 @@ namespace ShopRazor.Pages.Companies
                 return Page();
             }
 
-            //_context.Attach(Company).State = EntityState.Modified;
-          await   companyServices.UpdateCompany(_company);
 
-            //try
-            //{
-            //    await unitOfWork.CommitAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!CompanyExists(_company.CompanyID))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
+            _company.ModifidDatetime = DateTime.Now;
+            var companyUpdate = _mapper.Map<Company>(_company);
+
+            await companyServices.UpdateCompany(companyUpdate);
+
 
             return RedirectToPage("./Index");
         }

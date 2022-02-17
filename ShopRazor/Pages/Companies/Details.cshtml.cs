@@ -9,7 +9,7 @@ using Core.Services;
 using Entities;
 using Core;
 
-namespace ShopRazor.Pages.Companies
+namespace Netyar.Pages.Companies
 {
     public class DetailsModel : PageModel
     {

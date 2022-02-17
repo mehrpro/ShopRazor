@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace ShopRazor.Areas.Identity.Pages.Account.Manage
+namespace Netyar.Areas.Identity.Pages.Account.Manage
 {
     public static class ManageNavPages
     {

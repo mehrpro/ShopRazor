@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Core.Services;
 using Entities;
 using Core;
+using Netyar.DTO.CompaniesDTO;
 
-namespace ShopRazor.Pages.Companies
+namespace Netyar.Pages.Companies
 {
     public class CreateModel : PageModel
     {
@@ -26,9 +27,9 @@ namespace ShopRazor.Pages.Companies
         }
 
         [BindProperty]
-        public Company _company { get; set; }
+        public CompanyCreateDTO _company { get; set; }
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -36,7 +37,19 @@ namespace ShopRazor.Pages.Companies
                 return Page();
             }
 
-            await companyServices.CreateCompany(_company);
+            var newCompany = new Company
+            {
+
+                CompanyTitle = _company.CompanyTitle,
+                Description = _company.Description,
+                IsActive = true,
+                IsDelete = false,
+                CreateDatetime = DateTime.Now,
+                ModifidDatetime = DateTime.Now,
+                DeleteDatetime = DateTime.Now,
+
+            };
+            await companyServices.CreateCompany(newCompany);
 
             return RedirectToPage("./Index");
         }

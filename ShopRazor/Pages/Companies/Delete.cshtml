@@ -1,15 +1,14 @@
 ﻿@page
-@model ShopRazor.Pages.Companies.DeleteModel
+@model Netyar.Pages.Companies.DeleteModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "حذف";
 }
 
-<h1>Delete</h1>
+<h1>حذف شرکت</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>با حذف شرکت کلیه اطلاعات زیر مجموعه این شرکت نیز حذف خواهند شد!</h3>
 <div>
-    <h4>Company</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -25,40 +24,17 @@
             @Html.DisplayFor(model => model._company.Description)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model._company.IsActive)
+            <label asp-for="_company.Departments" class="control-label"></label>
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model._company.IsActive)
+            <select asp-for="_company.Departments" class="form-control" asp-items="ViewBag.DepartmentsList"></select>
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model._company.IsDelete)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model._company.IsDelete)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model._company.CreateDatetime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model._company.CreateDatetime)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model._company.ModifidDatetime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model._company.ModifidDatetime)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model._company.DeleteDatetime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model._company.DeleteDatetime)
-        </dd>
+
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="_company.CompanyID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+        <input type="submit" value="حذف" class="btn btn-danger" /> |
+        <a asp-page="./Index" class="btn btn-secondary">انصراف</a>
     </form>
 </div>

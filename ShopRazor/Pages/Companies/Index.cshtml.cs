@@ -9,8 +9,9 @@ using Data;
 using Entities;
 using Core;
 using Core.Services;
+using Netyar.DTO.CompaniesDTO;
 
-namespace ShopRazor.Pages.Companies
+namespace Netyar.Pages.Companies
 {
     public class IndexModel : PageModel
     {
@@ -18,16 +19,26 @@ namespace ShopRazor.Pages.Companies
 
         public IndexModel(ICompanyServices companyServices)
         {
-           
+
             this.companyServices = companyServices;
         }
 
-        public IList<Company> _company { get;set; }
+        public IList<CompanyListDTO> CompanyList { get; set; }
 
         public async Task OnGetAsync()
         {
-            var result = await companyServices.GetAllCompany();
-            _company = result.ToList();
+            var result = await companyServices.GetAllCompanyWithDepartment();
+
+            CompanyList = new List<CompanyListDTO>();
+            foreach (var company in result.ToList())
+            {
+                var dto = new CompanyListDTO();
+                dto.CompanyID = company.CompanyID;
+                dto.CompanyTitle = company.CompanyTitle;
+                dto.CountDepartment = company.Departments.Count;
+                CompanyList.Add(dto);
+            }
+
         }
     }
 }
